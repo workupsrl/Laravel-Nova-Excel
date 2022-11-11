@@ -1,5 +1,5 @@
 {
-  "name": "maatwebsite/laravel-nova-excel",
+  "name": "workup/laravel-nova-excel",
   "description": "Supercharged Excel exports for Laravel Nova Resources",
   "license": "MIT",
   "keywords": [
@@ -18,7 +18,6 @@
   ],
   "require": {
     "php": ">=7.1.0",
-    "laravel/nova": "*",
     "laravie/serialize-queries": "^1.0|^2.0",
     "maatwebsite/excel": "^3.1"
   },
@@ -30,7 +29,7 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Maatwebsite\\LaravelNovaExcel\\LaravelNovaExcelServiceProvider"
+        "Workup\\LaravelNovaExcel\\LaravelNovaExcelServiceProvider"
       ]
     }
   }

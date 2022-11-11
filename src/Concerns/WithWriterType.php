@@ -1,6 +1,6 @@
 <?php
 
-namespace Maatwebsite\LaravelNovaExcel\Concerns;
+namespace Workup\LaravelNovaExcel\Concerns;
 
 use Laravel\Nova\Http\Requests\ActionRequest;
 

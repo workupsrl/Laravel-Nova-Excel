@@ -1,12 +1,12 @@
 <?php
 
-namespace Maatwebsite\LaravelNovaExcel;
+namespace Workup\LaravelNovaExcel\;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Nova\Fields\Field;
-use Maatwebsite\LaravelNovaExcel\Requests\ExportActionRequest;
+use Workup\LaravelNovaExcel\Requests\ExportActionRequest;
 
 class LaravelNovaExcelServiceProvider extends ServiceProvider
 {
