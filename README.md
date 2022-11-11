@@ -65,7 +65,7 @@ composer require maatwebsite/laravel-nova-excel
 namespace App\Nova;
 
 use Illuminate\Http\Request;
-use Maatwebsite\LaravelNovaExcel\Actions\DownloadExcel;
+use Workup\LaravelNovaExcel\Actions\DownloadExcel;
 
 class User extends Resource
 {

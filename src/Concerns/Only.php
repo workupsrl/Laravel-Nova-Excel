@@ -1,9 +1,9 @@
 <?php
 
-namespace Maatwebsite\LaravelNovaExcel\Concerns;
+namespace Workup\LaravelNovaExcel\Concerns;
 
 use Laravel\Nova\Http\Requests\ActionRequest;
-use Maatwebsite\LaravelNovaExcel\Requests\ExportActionRequest;
+use Workup\LaravelNovaExcel\Requests\ExportActionRequest;
 
 trait Only
 {

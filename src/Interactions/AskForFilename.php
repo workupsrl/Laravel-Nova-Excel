@@ -1,6 +1,6 @@
 <?php
 
-namespace Maatwebsite\LaravelNovaExcel\Interactions;
+namespace Workup\LaravelNovaExcel\Interactions;
 
 use Laravel\Nova\Fields\Text;
 

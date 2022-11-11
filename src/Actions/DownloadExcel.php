@@ -1,6 +1,6 @@
 <?php
 
-namespace Maatwebsite\LaravelNovaExcel\Actions;
+namespace Workup\LaravelNovaExcel\Actions;
 
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
