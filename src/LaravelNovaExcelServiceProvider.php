@@ -1,6 +1,6 @@
 <?php
 
-namespace Maatwebsite\LaravelNovaExcel;
+namespace Workup\LaravelNovaExcel;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
