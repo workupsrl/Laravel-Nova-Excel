@@ -16,6 +16,12 @@
       "email": "patrick@maatwebsite.nl"
     }
   ],
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/workupsrl/nova.git"
+    }
+  ],
   "require": {
     "php": ">=7.1.0",
     "laravie/serialize-queries": "^1.0|^2.0",
@@ -24,7 +30,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Maatwebsite\\LaravelNovaExcel\\": "src/"
+      "Workup\\LaravelNovaExcel\\": "src/"
     }
   },
   "extra": {
