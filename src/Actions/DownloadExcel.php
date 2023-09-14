@@ -24,9 +24,9 @@ class DownloadExcel extends ExportToExcel
     /**
      * @param  ActionRequest  $request
      * @param  Action  $exportable
-     * @return array
+     * @return mixed
      */
-    public function handle(ActionRequest $request, Action $exportable): array
+    public function handle(ActionRequest $request, Action $exportable)
     {
         if (config('excel.temporary_files.remote_disk')) {
             return $this->handleRemoteDisk($request, $exportable);
@@ -55,9 +55,9 @@ class DownloadExcel extends ExportToExcel
     /**
      * @param  ActionRequest  $request
      * @param  Action  $exportable
-     * @return array
+     * @return mixed
      */
-    public function handleRemoteDisk(ActionRequest $request, Action $exportable): array
+    public function handleRemoteDisk(ActionRequest $request, Action $exportable): mixed
     {
         $temporaryFilePath = config('excel.temporary_files.remote_prefix') . 'laravel-excel-' . Str::random(32) . '.' . $this->getDefaultExtension();
         $isStored          = Excel::store($exportable, $temporaryFilePath, config('excel.temporary_files.remote_disk'), $this->getWriterType());
