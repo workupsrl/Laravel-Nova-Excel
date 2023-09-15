@@ -1,6 +1,6 @@
 <?php
 
-namespace Workup\LaravelNovaExcel\Concerns;
+namespace Workup\Nova\LaravelNovaExcel\Concerns;
 
 use Illuminate\Support\Str;
 use Laravel\Nova\Http\Requests\ActionRequest;

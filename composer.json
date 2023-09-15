@@ -16,21 +16,27 @@
       "email": "patrick@maatwebsite.nl"
     }
   ],
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://nova.laravel.com"
+    }
+  ],
   "require": {
-    "php": ">=7.1.0",
-    "workup/nova": "^4.0",
+    "php": ">=8.0",
+    "laravel/nova": "^4.27",
     "laravie/serialize-queries": "^1.0|^2.0",
     "maatwebsite/excel": "^3.1"
   },
   "autoload": {
     "psr-4": {
-      "Workup\\LaravelNovaExcel\\": "src/"
+      "Workup\\Nova\\LaravelNovaExcel\\": "src/"
     }
   },
   "extra": {
     "laravel": {
       "providers": [
-        "Workup\\LaravelNovaExcel\\LaravelNovaExcelServiceProvider"
+        "Workup\\Nova\\LaravelNovaExcel\\LaravelNovaExcelServiceProvider"
       ]
     }
   }

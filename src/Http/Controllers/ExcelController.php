@@ -1,6 +1,6 @@
 <?php
 
-namespace Workup\LaravelNovaExcel\Http\Controllers;
+namespace Workup\Nova\LaravelNovaExcel\Http\Controllers;
 
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;

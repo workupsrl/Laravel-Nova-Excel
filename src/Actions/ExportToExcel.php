@@ -1,46 +1,45 @@
 <?php
 
-namespace Workup\LaravelNovaExcel\Actions;
+namespace Workup\Nova\LaravelNovaExcel\Actions;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Query\Builder;
-use Illuminate\Support\Arr;
-use Illuminate\Support\Collection;
-use Laravel\Nova\Actions\Action;
-use Laravel\Nova\Fields\Field;
-use Laravel\Nova\Fields\Gravatar;
-use Laravel\Nova\Http\Requests\ActionRequest;
-use Laravel\Nova\Http\Requests\NovaRequest;
-use Laravel\Nova\Nova;
 use Laravel\Nova\Resource;
-use Maatwebsite\Excel\Concerns\FromQuery;
-use Maatwebsite\Excel\Concerns\WithCustomChunkSize;
-use Maatwebsite\Excel\Concerns\WithHeadings as WithHeadingsConcern;
-use Maatwebsite\Excel\Concerns\WithMapping;
+use Illuminate\Support\Arr;
+use Laravel\Nova\Fields\Field;
+use Laravel\Nova\Actions\Action;
+use Laravel\Nova\Fields\Gravatar;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Facades\Excel;
-use Workup\LaravelNovaExcel\Concerns\Except;
-use Workup\LaravelNovaExcel\Concerns\Only;
-use Workup\LaravelNovaExcel\Concerns\WithChunkCount;
-use Workup\LaravelNovaExcel\Concerns\WithDisk;
-use Workup\LaravelNovaExcel\Concerns\WithFilename;
-use Workup\LaravelNovaExcel\Concerns\WithHeadings;
-use Workup\LaravelNovaExcel\Concerns\WithWriterType;
-use Workup\LaravelNovaExcel\Interactions\AskForFilename;
-use Workup\LaravelNovaExcel\Interactions\AskForWriterType;
-use Workup\LaravelNovaExcel\Requests\ExportActionRequest;
-use Workup\LaravelNovaExcel\Requests\ExportActionRequestFactory;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Maatwebsite\Excel\Concerns\FromQuery;
+use Laravel\Nova\Http\Requests\NovaRequest;
+use Maatwebsite\Excel\Concerns\WithMapping;
+use Laravel\Nova\Http\Requests\ActionRequest;
+use Workup\Nova\LaravelNovaExcel\Concerns\Only;
+use Workup\Nova\LaravelNovaExcel\Concerns\Except;
+use Maatwebsite\Excel\Concerns\WithCustomChunkSize;
+use Workup\Nova\LaravelNovaExcel\Concerns\WithDisk;
+use Workup\Nova\LaravelNovaExcel\Concerns\WithFilename;
+use Workup\Nova\LaravelNovaExcel\Concerns\WithHeadings;
+use Workup\Nova\LaravelNovaExcel\Concerns\WithChunkCount;
+use Workup\Nova\LaravelNovaExcel\Concerns\WithWriterType;
+use Workup\Nova\LaravelNovaExcel\Interactions\AskForFilename;
+use Workup\Nova\LaravelNovaExcel\Requests\ExportActionRequest;
+use Workup\Nova\LaravelNovaExcel\Interactions\AskForWriterType;
+use Maatwebsite\Excel\Concerns\WithHeadings as WithHeadingsConcern;
+use Workup\Nova\LaravelNovaExcel\Requests\ExportActionRequestFactory;
 
 class ExportToExcel extends Action implements FromQuery, WithCustomChunkSize, WithHeadingsConcern, WithMapping
 {
-    use AskForFilename,
-        AskForWriterType,
-        Except,
-        Only,
-        WithChunkCount,
-        WithDisk,
-        WithFilename,
-        WithHeadings,
-        WithWriterType;
+    use AskForFilename;
+    use AskForWriterType;
+    use Except;
+    use Only;
+    use WithChunkCount;
+    use WithDisk;
+    use WithFilename;
+    use WithHeadings;
+    use WithWriterType;
 
     /**
      * @var ExportActionRequest|ActionRequest
@@ -76,6 +75,7 @@ class ExportToExcel extends Action implements FromQuery, WithCustomChunkSize, Wi
      * Execute the action for the given request.
      *
      * @param  \Laravel\Nova\Http\Requests\ActionRequest  $request
+     *
      * @return mixed
      */
     public function handleRequest(ActionRequest $request)
@@ -84,7 +84,7 @@ class ExportToExcel extends Action implements FromQuery, WithCustomChunkSize, Wi
         $this->handleFilename($request);
 
         $this->resource = $request->resource();
-        $this->request  = ExportActionRequestFactory::make($request);
+        $this->request = ExportActionRequestFactory::make($request);
 
         $query = $this->request->toExportQuery();
         $this->handleOnly($this->request);
@@ -96,6 +96,7 @@ class ExportToExcel extends Action implements FromQuery, WithCustomChunkSize, Wi
     /**
      * @param  ActionRequest  $request
      * @param  Action  $exportable
+     *
      * @return mixed
      */
     public function handle(ActionRequest $request, Action $exportable)
@@ -120,6 +121,7 @@ class ExportToExcel extends Action implements FromQuery, WithCustomChunkSize, Wi
 
     /**
      * @param  callable  $callback
+     *
      * @return $this
      */
     public function onSuccess(callable $callback)
@@ -131,6 +133,7 @@ class ExportToExcel extends Action implements FromQuery, WithCustomChunkSize, Wi
 
     /**
      * @param  callable  $callback
+     *
      * @return $this
      */
     public function onFailure(callable $callback)
@@ -150,6 +153,7 @@ class ExportToExcel extends Action implements FromQuery, WithCustomChunkSize, Wi
 
     /**
      * @param  NovaRequest  $request
+     *
      * @return Field[]
      */
     public function fields(NovaRequest $request)
@@ -159,18 +163,19 @@ class ExportToExcel extends Action implements FromQuery, WithCustomChunkSize, Wi
 
     /**
      * @param  Model|mixed  $row
+     *
      * @return array
      */
     public function map($row): array
     {
-        $only   = $this->getOnly();
+        $only = $this->getOnly();
         $except = $this->getExcept();
 
         if ($row instanceof Model) {
             // If user didn't specify a custom except array, use the hidden columns.
             // User can override this by passing an empty array ->except([])
             // When user specifies with only(), ignore if the column is hidden or not.
-            if (!$this->onlyIndexFields && $except === null && (!is_array($only) || count($only) === 0)) {
+            if (! $this->onlyIndexFields && $except === null && (! is_array($only) || count($only) === 0)) {
                 $except = $row->getHidden();
             }
 
@@ -195,6 +200,7 @@ class ExportToExcel extends Action implements FromQuery, WithCustomChunkSize, Wi
 
     /**
      * @param  Builder  $query
+     *
      * @return $this
      */
     protected function withQuery($query)
@@ -215,16 +221,17 @@ class ExportToExcel extends Action implements FromQuery, WithCustomChunkSize, Wi
     /**
      * @param  Model  $model
      * @param  array  $only
+     *
      * @return array
      */
     protected function replaceFieldValuesWhenOnResource(Model $model, array $only = []): array
     {
         $resource = $this->resolveResource($model);
-        $fields   = $this->resourceFields($resource);
+        $fields = $this->resourceFields($resource);
 
         $row = [];
         foreach ($fields as $field) {
-            if (!$this->isExportableField($field)) {
+            if (! $this->isExportableField($field)) {
                 continue;
             }
 
@@ -253,6 +260,7 @@ class ExportToExcel extends Action implements FromQuery, WithCustomChunkSize, Wi
 
     /**
      * @param  \Laravel\Nova\Resource  $resource
+     *
      * @return Collection
      */
     protected function resourceFields(Resource $resource)
@@ -262,6 +270,7 @@ class ExportToExcel extends Action implements FromQuery, WithCustomChunkSize, Wi
 
     /**
      * @param  Model  $model
+     *
      * @return \Laravel\Nova\Resource
      */
     protected function resolveResource(Model $model): Resource
@@ -273,10 +282,11 @@ class ExportToExcel extends Action implements FromQuery, WithCustomChunkSize, Wi
 
     /**
      * @param  Field  $field
+     *
      * @return bool
      */
     protected function isExportableField(Field $field): bool
     {
-        return !$field instanceof Gravatar;
+        return ! $field instanceof Gravatar;
     }
 }

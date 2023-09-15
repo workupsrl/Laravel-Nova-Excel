@@ -1,6 +1,6 @@
 <?php
 
-namespace Workup\LaravelNovaExcel\Requests;
+namespace Workup\Nova\LaravelNovaExcel\Requests;
 
 trait WithHeadingFinder
 {

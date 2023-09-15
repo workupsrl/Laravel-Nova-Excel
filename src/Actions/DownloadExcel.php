@@ -1,12 +1,12 @@
 <?php
 
-namespace Workup\LaravelNovaExcel\Actions;
+namespace Workup\Nova\LaravelNovaExcel\Actions;
 
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 use Laravel\Nova\Actions\Action;
-use Laravel\Nova\Http\Requests\ActionRequest;
+use Illuminate\Support\Facades\URL;
 use Maatwebsite\Excel\Facades\Excel;
+use Laravel\Nova\Http\Requests\ActionRequest;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class DownloadExcel extends ExportToExcel
@@ -24,6 +24,7 @@ class DownloadExcel extends ExportToExcel
     /**
      * @param  ActionRequest  $request
      * @param  Action  $exportable
+     *
      * @return mixed
      */
     public function handle(ActionRequest $request, Action $exportable)
@@ -38,7 +39,7 @@ class DownloadExcel extends ExportToExcel
             $this->getWriterType()
         );
 
-        if (!$response instanceof BinaryFileResponse || $response->isInvalid()) {
+        if (! $response instanceof BinaryFileResponse || $response->isInvalid()) {
             return \is_callable($this->onFailure)
                 ? ($this->onFailure)($request, $response)
                 : Action::danger(__('Resource could not be exported.'));
@@ -55,14 +56,18 @@ class DownloadExcel extends ExportToExcel
     /**
      * @param  ActionRequest  $request
      * @param  Action  $exportable
+     *
      * @return mixed
      */
     public function handleRemoteDisk(ActionRequest $request, Action $exportable): mixed
     {
         $temporaryFilePath = config('excel.temporary_files.remote_prefix') . 'laravel-excel-' . Str::random(32) . '.' . $this->getDefaultExtension();
-        $isStored          = Excel::store($exportable, $temporaryFilePath, config('excel.temporary_files.remote_disk'), $this->getWriterType());
+        $isStored = Excel::store($exportable,
+            $temporaryFilePath,
+            config('excel.temporary_files.remote_disk'),
+            $this->getWriterType());
 
-        if (!$isStored) {
+        if (! $isStored) {
             return \is_callable($this->onFailure)
                 ? ($this->onFailure)($request, null)
                 : Action::danger(__('Resource could not be exported.'));
@@ -78,12 +83,13 @@ class DownloadExcel extends ExportToExcel
 
     /**
      * @param  string  $filePath
+     *
      * @return string
      */
     protected function getDownloadUrl(string $filePath): string
     {
         return URL::temporarySignedRoute('laravel-nova-excel.download', now()->addMinutes(1), [
-            'path'     => encrypt($filePath),
+            'path' => encrypt($filePath),
             'filename' => $this->getFilename(),
         ]);
     }

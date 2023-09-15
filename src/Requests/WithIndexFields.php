@@ -1,6 +1,6 @@
 <?php
 
-namespace Workup\LaravelNovaExcel\Requests;
+namespace Workup\Nova\LaravelNovaExcel\Requests;
 
 use Illuminate\Support\Collection;
 use Laravel\Nova\Fields\Field;

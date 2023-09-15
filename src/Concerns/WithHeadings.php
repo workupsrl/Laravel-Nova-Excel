@@ -1,11 +1,11 @@
 <?php
 
-namespace Workup\LaravelNovaExcel\Concerns;
+namespace Workup\Nova\LaravelNovaExcel\Concerns;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
-use Workup\LaravelNovaExcel\Requests\ExportActionRequest;
+use Workup\Nova\LaravelNovaExcel\Requests\ExportActionRequest;
 
 trait WithHeadings
 {

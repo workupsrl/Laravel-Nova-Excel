@@ -1,6 +1,6 @@
 <?php
 
-namespace Workup\LaravelNovaExcel\Requests;
+namespace Workup\Nova\LaravelNovaExcel\Requests;
 
 use Laravel\Nova\Http\Requests\ActionRequest;
 use Laravel\Nova\Http\Requests\LensActionRequest;
